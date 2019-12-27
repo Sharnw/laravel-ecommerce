@@ -14,39 +14,36 @@ export default {
             selectedShippingAddress: null,
             selectedBillingAddress: null,
             paymentOption: '',
+            paymentOptionError: '',
             shippingOption: '',
+            shippingOptionError: '',
             shippingCountry: 0,
-            billingCountry: 0,
-            stripeToken: ''
+            billingCountry: 0
         }
     },
     methods: {
         handleSubmit (e) {
-            //var app = this
-            e.preventDefault()
-            window.x = this
-            EventBus.$emit('placeOrderBefore')
+            e.preventDefault();
 
-            return
+            var valid = true;
 
-            this.handleBeforeSubmit().then(result => {
-                if (result.error) {
-                    var errorElement = document.getElementById('card-errors')
-                    errorElement.textContent = result.error.message
-                    return false
-                } else {
-                    app.stripeToken = result.token.id
-                    console.log(app.stripeToken, 'i am ready for submit')
-                    document.getElementById('checkout-form').submit()
-                    return true
-                }
-            })
-        },
-        stripePlaceOrderBefore() {
-            console.log('here');    
-        },
-        handleBeforeSubmit() {
-            return stripe.createToken(card)
+            // validate that a payment option has been selected
+            if (this.paymentOption == '') {
+                this.paymentOptionError = 'Please select a payment option.';
+                valid = false;
+            }
+            // validate that a shipping option has been selected
+            if (this.shippingOption == '') {
+                this.shippingOptionError = 'Please select a shipping option.';
+                valid = false;
+            }
+
+            // bail-out if this validation fails
+            if (!valid) return;
+
+            // attempt to process the order
+            // this will bail-out if payment option fails
+            EventBus.$emit('placeOrderBefore');
         },
         shippingCountryOptionChange(val) {
             this.shippingCountry = val;
@@ -60,12 +57,9 @@ export default {
         useDifferentBillingAddressSwitchChange(val) {
             this.useDifferentBillingAddress = !val;
         },
-        // handlePaymentChange(identifier) {
-        //     console.log('i am listener', identifier)
-        //     //this.paymentOption = val;
-        // },
-        handleShippingChange(e, val) {
-            this.shippingOption = val;
+        handleShippingChange(enabled, identifier) {
+            this.shippingOptionError = '';
+            if (enabled) this.shippingOption = identifier;
         },
         changeSelectedShippingAddress(val) {
             this.selectedShippingAddress = this.shippingAddresses[val];
@@ -95,9 +89,11 @@ export default {
         }
         var app = this
         EventBus.$on('selectedPaymentIdentifier', function(identifier) {
-            app.paymentOption = identifier
-        })
+            app.paymentOptionError = '';
+            app.paymentOption = identifier;
+        });
 
+        // order submission event
         EventBus.$on('placeOrderAfter', function() {
             console.log('placeorder after')
             document.getElementById('checkout-form').submit()
@@ -105,13 +101,3 @@ export default {
     }
 }
 </script>
-<style lang="less">
-.checkout-right {
-    background: #e9e6e6;
-    min-height: 400px;
-    border-radius: 5px;
-}
-.mt-1 {
-    margin-top: 1rem;
-}
-</style>

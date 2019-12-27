@@ -41,10 +41,14 @@
                     type="primary"
                     :loading="submitStatus"
                     html-type="submit">
-                    PlaceOrder
+                    Place Order
                 </a-button>
             </a-form-item>
-           
+            @if (session('error'))
+                <div class="alert alert-error" role="alert">
+                    <h3>{{ session('error') }}</h3>
+                </div>
+            @endif
         </a-col>
       </a-row>
 
