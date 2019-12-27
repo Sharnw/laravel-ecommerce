@@ -6,4 +6,6 @@
     
     php artisan migrate
 
+    php artisan avored:module:install avored-cash-on-delivery
+
 ### How to Use
