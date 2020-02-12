@@ -130,7 +130,7 @@
                     validate-status="error"
                     help="{{ $errors->first('shipping.address2') }}"
                 @endif
-                label="{{ __('Address2') }}">
+                label="{{ __('Address 2') }}">
             <a-input
                 
                 name="shipping[address2]"
@@ -138,7 +138,7 @@
                 'shipping.address2',
                 {
                     rules: [
-                        {   required: true, 
+                        {   required: false, 
                             message: 'The {{ __('Address2') }} field is required' 
                         }
                     ]
@@ -150,6 +150,78 @@
 </a-row>
 
 <a-row :gutter="15">
+    <a-col :span="12">
+        <a-form-item
+                @if ($errors->has('shipping.city'))
+                    validate-status="error"
+                    help="{{ $errors->first('shipping.city') }}"
+                @endif
+                label="{{ __('City') }}">
+            <a-input
+                
+                name="shipping[city]"
+                v-decorator="[
+                'shipping.city',
+                {
+                    rules: [
+                        {   required: true, 
+                            message: 'The {{ __('City') }} field is required' 
+                        }
+                    ]
+                }
+                ]"
+            />
+        </a-form-item>
+    </a-col>
+    <a-col :span="12">
+        <a-form-item
+                @if ($errors->has('shipping.postcode'))
+                    validate-status="error"
+                    help="{{ $errors->first('shipping.postcode') }}"
+                @endif
+                label="{{ __('Postcode') }}">
+            <a-input
+                
+                name="shipping[postcode]"
+                v-decorator="[
+                'shipping.postcode',
+                {
+                    rules: [
+                        {   required: true, 
+                            message: 'The {{ __('Postcode') }} field is required' 
+                        }
+                    ]
+                }
+                ]"
+            />
+        </a-form-item>
+    </a-col>
+</a-row>
+
+<a-row :gutter="15">
+    <a-col :span="12">
+        <a-form-item
+                @if ($errors->has('shipping.state'))
+                    validate-status="error"
+                    help="{{ $errors->first('shipping.state') }}"
+                @endif
+                label="{{ __('State') }}">
+            <a-input
+                
+                name="shipping[state]"
+                v-decorator="[
+                'shipping.state',
+                {
+                    rules: [
+                        {   required: true, 
+                            message: 'The {{ __('State') }} field is required' 
+                        }
+                    ]
+                }
+                ]"
+            />
+        </a-form-item>
+    </a-col>
     <a-col :span="12">
         <a-form-item
                 @if ($errors->has('shipping.country_id'))
@@ -178,79 +250,8 @@
         </a-form-item>
         <input type="hidden" name="shipping[country_id]" v-model="shippingCountry" />
     </a-col>
-    <a-col :span="12">
-        <a-form-item
-                @if ($errors->has('shipping.state'))
-                    validate-status="error"
-                    help="{{ $errors->first('shipping.state') }}"
-                @endif
-                label="{{ __('State') }}">
-            <a-input
-                
-                name="shipping[state]"
-                v-decorator="[
-                'shipping.state',
-                {
-                    rules: [
-                        {   required: true, 
-                            message: 'The {{ __('State') }} field is required' 
-                        }
-                    ]
-                }
-                ]"
-            />
-        </a-form-item>
-    </a-col>
 </a-row>
 
-<a-row :gutter="15">
-    <a-col :span="12">
-        <a-form-item
-                @if ($errors->has('shipping.postcode'))
-                    validate-status="error"
-                    help="{{ $errors->first('shipping.postcode') }}"
-                @endif
-                label="{{ __('Postcode') }}">
-            <a-input
-                
-                name="shipping[postcode]"
-                v-decorator="[
-                'shipping.postcode',
-                {
-                    rules: [
-                        {   required: true, 
-                            message: 'The {{ __('Postcode') }} field is required' 
-                        }
-                    ]
-                }
-                ]"
-            />
-        </a-form-item>
-    </a-col>
-    <a-col :span="12">
-        <a-form-item
-                @if ($errors->has('shipping.city'))
-                    validate-status="error"
-                    help="{{ $errors->first('shipping.city') }}"
-                @endif
-                label="{{ __('City') }}">
-            <a-input
-                
-                name="shipping[city]"
-                v-decorator="[
-                'shipping.city',
-                {
-                    rules: [
-                        {   required: true, 
-                            message: 'The {{ __('City') }} field is required' 
-                        }
-                    ]
-                }
-                ]"
-            />
-        </a-form-item>
-    </a-col>
-</a-row>
 </div>
 
 <div v-if="shippingAddresses.length > 0">
@@ -289,6 +290,8 @@
 </div>
 
 
-<a-switch class="mt-1" @change="useDifferentBillingAddressSwitchChange" default-checked></a-switch>
-{{ __('User Different Billing Address') }}
-<input type="hidden" name="use_different_address" v-model="useDifferentBillingAddress" />
+<div class="mt-1">
+    <a-switch @change="useDifferentBillingAddressSwitchChange" default-unchecked></a-switch>
+    {{ __('Use Different Billing Address') }}
+    <input type="hidden" name="use_different_address" v-model="useDifferentBillingAddress" />
+</div>

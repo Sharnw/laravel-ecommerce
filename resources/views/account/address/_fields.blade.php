@@ -192,6 +192,59 @@
 <a-row :gutter="15"> 
     <a-col :span="12">
         <a-form-item
+            @if ($errors->has('city'))
+                validate-status="error"
+                help="{{ $errors->first('city') }}"
+            @endif
+            label="{{ __('City') }}"
+        >
+            <a-input
+                :auto-focus="true"
+                name="city"
+                v-decorator="[
+                'city',
+                {{ (isset($address)) ? "{'initialValue': '". $address->city ."'}," : "" }}
+                {rules: 
+                    [
+                        {   required: false, 
+                            message: '{{ __('validation.required', ['attribute' => 'city']) }}' 
+                        }
+                    ]
+                }
+                ]"
+            ></a-input>
+        </a-form-item>
+    </a-col>
+    <a-col :span="12">
+        <a-form-item
+            @if ($errors->has('state'))
+                validate-status="error"
+                help="{{ $errors->first('state') }}"
+            @endif
+            label="{{ __('State') }}"
+        >
+            <a-input
+                :auto-focus="true"
+                name="state"
+                v-decorator="[
+                'state',
+                {{ (isset($address)) ? "{'initialValue': '". $address->state ."'}," : "" }}
+                {rules: 
+                    [
+                        {   required: true, 
+                            message: '{{ __('validation.required', ['attribute' => 'state']) }}' 
+                        }
+                    ]
+                }
+                ]"
+            ></a-input>
+        </a-form-item>
+    </a-col>
+</a-row>
+
+<a-row :gutter="15"> 
+    <a-col :span="12">
+        <a-form-item
             @if ($errors->has('postcode'))
                 validate-status="error"
                 help="{{ $errors->first('postcode') }}"
@@ -245,56 +298,4 @@
     </a-col>
 </a-row>
 
-<a-row :gutter="15"> 
-    <a-col :span="12">
-        <a-form-item
-            @if ($errors->has('state'))
-                validate-status="error"
-                help="{{ $errors->first('state') }}"
-            @endif
-            label="{{ __('State') }}"
-        >
-            <a-input
-                :auto-focus="true"
-                name="state"
-                v-decorator="[
-                'state',
-                {{ (isset($address)) ? "{'initialValue': '". $address->state ."'}," : "" }}
-                {rules: 
-                    [
-                        {   required: true, 
-                            message: '{{ __('validation.required', ['attribute' => 'state']) }}' 
-                        }
-                    ]
-                }
-                ]"
-            ></a-input>
-        </a-form-item>
-    </a-col>
-    <a-col :span="12">
-        <a-form-item
-            @if ($errors->has('city'))
-                validate-status="error"
-                help="{{ $errors->first('city') }}"
-            @endif
-            label="{{ __('City') }}"
-        >
-            <a-input
-                :auto-focus="true"
-                name="city"
-                v-decorator="[
-                'city',
-                {{ (isset($address)) ? "{'initialValue': '". $address->city ."'}," : "" }}
-                {rules: 
-                    [
-                        {   required: false, 
-                            message: '{{ __('validation.required', ['attribute' => 'city']) }}' 
-                        }
-                    ]
-                }
-                ]"
-            ></a-input>
-        </a-form-item>
-    </a-col>
-</a-row>
 

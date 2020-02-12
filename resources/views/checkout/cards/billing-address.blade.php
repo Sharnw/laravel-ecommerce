@@ -131,7 +131,7 @@
                     validate-status="error"
                     help="{{ $errors->first('billing.address2') }}"
                 @endif
-                label="{{ __('Address2') }}">
+                label="{{ __('Address 2') }}">
             <a-input
                 
                 name="billing[address2]"
@@ -139,7 +139,7 @@
                 'billing.address2',
                 {
                     rules: [
-                        {   required: true, 
+                        {   required: false, 
                             message: 'The {{ __('Address2') }} field is required' 
                         }
                     ]
@@ -151,6 +151,78 @@
 </a-row>
 
 <a-row :gutter="15">
+    <a-col :span="12">
+        <a-form-item
+                @if ($errors->has('billing.city'))
+                    validate-status="error"
+                    help="{{ $errors->first('billing.city') }}"
+                @endif
+                label="{{ __('City') }}">
+            <a-input
+                
+                name="billing[city]"
+                v-decorator="[
+                'billing.city',
+                {
+                    rules: [
+                        {   required: true, 
+                            message: 'The {{ __('City') }} field is required' 
+                        }
+                    ]
+                }
+                ]"
+            />
+        </a-form-item>
+    </a-col>
+    <a-col :span="12">
+        <a-form-item
+                @if ($errors->has('billing.postcode'))
+                    validate-status="error"
+                    help="{{ $errors->first('billing.postcode') }}"
+                @endif
+                label="{{ __('Postcode') }}">
+            <a-input
+                
+                name="billing[postcode]"
+                v-decorator="[
+                'billing.postcode',
+                {
+                    rules: [
+                        {   required: true, 
+                            message: 'The {{ __('Postcode') }} field is required' 
+                        }
+                    ]
+                }
+                ]"
+            />
+        </a-form-item>
+    </a-col>
+</a-row>
+
+<a-row :gutter="15">
+    <a-col :span="12">
+        <a-form-item
+                @if ($errors->has('billing.state'))
+                    validate-status="error"
+                    help="{{ $errors->first('billing.state') }}"
+                @endif
+                label="{{ __('State') }}">
+            <a-input
+                
+                name="billing[state]"
+                v-decorator="[
+                'billing.state',
+                {
+                    rules: [
+                        {   required: true, 
+                            message: 'The {{ __('State') }} field is required' 
+                        }
+                    ]
+                }
+                ]"
+            />
+        </a-form-item>
+    </a-col>
     <a-col :span="12">
         <a-form-item
                 @if ($errors->has('billing.country_id'))
@@ -178,78 +250,6 @@
                 </a-select> 
         </a-form-item>
         <input type="hidden" name="billing[country_id]" v-model="billingCountry" />
-    </a-col>
-    <a-col :span="12">
-        <a-form-item
-                @if ($errors->has('billing.state'))
-                    validate-status="error"
-                    help="{{ $errors->first('billing.state') }}"
-                @endif
-                label="{{ __('State') }}">
-            <a-input
-                
-                name="billing[state]"
-                v-decorator="[
-                'billing.state',
-                {
-                    rules: [
-                        {   required: true, 
-                            message: 'The {{ __('State') }} field is required' 
-                        }
-                    ]
-                }
-                ]"
-            />
-        </a-form-item>
-    </a-col>
-</a-row>
-
-<a-row :gutter="15">
-    <a-col :span="12">
-        <a-form-item
-                @if ($errors->has('billing.postcode'))
-                    validate-status="error"
-                    help="{{ $errors->first('billing.postcode') }}"
-                @endif
-                label="{{ __('Postcode') }}">
-            <a-input
-                
-                name="billing[postcode]"
-                v-decorator="[
-                'billing.postcode',
-                {
-                    rules: [
-                        {   required: true, 
-                            message: 'The {{ __('Postcode') }} field is required' 
-                        }
-                    ]
-                }
-                ]"
-            />
-        </a-form-item>
-    </a-col>
-    <a-col :span="12">
-        <a-form-item
-                @if ($errors->has('billing.city'))
-                    validate-status="error"
-                    help="{{ $errors->first('billing.city') }}"
-                @endif
-                label="{{ __('City') }}">
-            <a-input
-                
-                name="billing[city]"
-                v-decorator="[
-                'billing.city',
-                {
-                    rules: [
-                        {   required: true, 
-                            message: 'The {{ __('City') }} field is required' 
-                        }
-                    ]
-                }
-                ]"
-            />
-        </a-form-item>
     </a-col>
 </a-row>
 

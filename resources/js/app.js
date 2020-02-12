@@ -66,6 +66,7 @@ Vue.component('cart-page', () => import('../components/CartPage.vue'))
 Vue.component('avored-layout', () => import('../components/layout/Layout.vue'))
 Vue.component('login-fields', () => import('../components/auth/LoginFields.vue'))
 Vue.component('register-fields', () => import('../components/auth/RegisterFields.vue'))
+Vue.component('payment-option-toggle', () => import('../components/payment/PaymentOptionToggle.vue'))
 
 Vue.component('avored-nav', () => import('../components/AvoRedNav.vue'))
 

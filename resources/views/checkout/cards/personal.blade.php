@@ -93,6 +93,7 @@
                 label="{{ __('Password') }}">
             <a-input
                 name="password"
+                type="password"
                 v-decorator="[
                 'password',
                 {
@@ -115,6 +116,7 @@
                 label="{{ __('Confirm Password') }}">
             <a-input
                 name="password_confirmation"
+                type="password"
                 v-decorator="[
                 'password_confirmation',
                 {
